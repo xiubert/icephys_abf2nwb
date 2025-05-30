@@ -1,6 +1,6 @@
 # Simple script for standardizing pCLAMP / clampFit .abf data to [NWB](https://nwb.org/) format
-- allows for simple uplaod to [DANDI](https://dandiarchive.org/) public data repository 
-- using [NeuroConv](https://github.com/catalystneuro/neuroconv) based upon https://neuroconv.readthedocs.io/en/main/conversion_examples_gallery/recording/abf.html
+- Allows for simple upload to [DANDI](https://dandiarchive.org/) public data repository
+- Using [NeuroConv](https://github.com/catalystneuro/neuroconv) based upon https://neuroconv.readthedocs.io/en/main/conversion_examples_gallery/recording/abf.html
 
 ## Environment setup
 1. Clone repository `https://github.com/xiubert/icephys_abf2nwb` and change to respository directory (`cd icephys_abf2nwb`).
@@ -13,13 +13,13 @@
 4. Install dependencies: `pip install -r requirements.txt`
 
 ## Data standardization pipeline:
-1. see `icephys_abf2nwb.ipynb`
-    1. set relevant variables:
+1. See `icephys_abf2nwb.ipynb`
+    1. Set relevant variables:
         - `excel_path` 
         - `ECEPHY_DATA_PATH`
         - `output_folder`
-    2. optionally set:
+    2. Optionally set:
         - `lab="my lab name"`
         - `institution="My University"`
         - `experimenter=["John Doe", "Jane Doe"]`
-    3. run code block (`ctrl+enter`)
+    3. Run code block (`ctrl+enter`)
