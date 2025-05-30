@@ -1,0 +1,6 @@
+pandas==2.2.3
+neuroconv==0.7.4
+setuptools==80.9.0
+neo==0.14.1
+openpyxl==3.1.5
+ipykernel==6.29.5
