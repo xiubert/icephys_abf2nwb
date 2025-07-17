@@ -23,3 +23,18 @@
         - `institution="My University"`
         - `experimenter=["John Doe", "Jane Doe"]`
     3. Run code block (`ctrl+enter`)
+
+## Viewing NWB
+-  with Neurosift v1: https://github.com/flatironinstitute/neurosift/tree/main
+    1. `pip install --upgrade neurosift`
+    2. `neurosift view-nwb ./nwb_files/2025053001.nwb` (browser should open)
+-  with Neurosift v2: https://github.com/flatironinstitute/neurosift?tab=readme-ov-file
+    1. `git submodule add https://github.com/flatironinstitute/neurosift.git`
+    2. `cd neurosift`
+    3. `git submodule update --init --recursive`
+    4. `npm install`
+    5. `npm run dev` => open browser to http://localhost:5173
+    6. run server for hosting local nwb files w/ CORS support:
+        1. global npm install of http-server: `npm install -g http-server`
+        2. from project root run: `http-server -p 8000 --cors`
+        3. open local file: http://localhost:5173/nwb?url=http://localhost:8000/nwb_files/2025053001.nwb
