@@ -1,0 +1,3 @@
+[submodule "neurosift"]
+	path = neurosift
+	url = https://github.com/flatironinstitute/neurosift.git
