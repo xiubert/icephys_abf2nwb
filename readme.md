@@ -12,17 +12,48 @@
         - If in command prompt `.\env\bin\activate.bat`
 4. Install dependencies: `pip install -r requirements.txt`
 
-## Data standardization pipeline:
-1. See `icephys_abf2nwb.ipynb`
-    1. Set relevant variables:
-        - `excel_path` 
-        - `ECEPHY_DATA_PATH`
-        - `output_folder`
-    2. Optionally set:
-        - `lab="my lab name"`
-        - `institution="My University"`
-        - `experimenter=["John Doe", "Jane Doe"]`
-    3. Run code block (`ctrl+enter`)
+## Data standardization pipeline
+
+### Option 1: Command-line script (Recommended)
+Use `convert_abf_to_nwb.py` for automated batch conversion with logging:
+```bash
+# Interactive mode (prompts for Excel path)
+python convert_abf_to_nwb.py
+
+# Specify all paths
+python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --data_path /path/to/abf_files
+
+# Override metadata
+python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --lab "Smith Lab" --institution "MIT"
+
+# Multiple experimenters
+python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --experimenter "John Doe" "Jane Smith"
+
+# View help
+python convert_abf_to_nwb.py --help
+```
+
+**Default configuration:**
+- Output directory: `nwb_files/` (created in the data directory)
+- Default lab, institution, and experimenter can be set at the top of the script
+- If `--data_path` is not provided, uses the Excel file's parent directory
+
+**Output:**
+- NWB files in `nwb_files/` directory
+- Log file: `conversion_log_YYYYMMDD_HHMMSS.txt`
+- Error CSV: `error_experiments_YYYYMMDD_HHMMSS.csv` (if any errors occur)
+
+### Option 2: Jupyter notebook
+See `icephys_abf2nwb.ipynb`
+1. Set relevant variables:
+    - `excel_path` 
+    - `ECEPHY_DATA_PATH`
+    - `output_folder`
+2. Optionally set:
+    - `lab="my lab name"`
+    - `institution="My University"`
+    - `experimenter=["John Doe", "Jane Doe"]`
+3. Run code block (`ctrl+enter`)
 
 ## Viewing NWB
 -  with Neurosift v1: https://github.com/flatironinstitute/neurosift/tree/main
