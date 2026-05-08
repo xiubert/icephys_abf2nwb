@@ -71,6 +71,9 @@ Examples:
   # Specify paths
   python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --data_path /path/to/abf_files
 
+  # Custom output folder
+  python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --output_folder /path/to/nwb_out
+
   # Override metadata
   python convert_abf_to_nwb.py --lab "Smith Lab" --institution "MIT" --experimenter "John Doe"
         """
@@ -87,7 +90,13 @@ Examples:
         type=str,
         help='Path to directory containing ABF files'
     )
-    
+
+    parser.add_argument(
+        '--output_folder',
+        type=str,
+        help='Path to output directory for NWB files and logs (default: <data_path>/nwb_files)'
+    )
+
     parser.add_argument(
         '--lab',
         type=str,
@@ -132,8 +141,11 @@ def main():
         ECEPHY_DATA_PATH = excel_path.parent
         print(f"Using data path: {ECEPHY_DATA_PATH}")
     
-    # Output directory is always nwb_files in the data directory
-    output_folder = ECEPHY_DATA_PATH / "nwb_files"
+    # Output directory: --output_folder if provided, else nwb_files/ in the data directory
+    if args.output_folder:
+        output_folder = Path(args.output_folder)
+    else:
+        output_folder = ECEPHY_DATA_PATH / "nwb_files"
     output_folder.mkdir(parents=True, exist_ok=True)
 
     # Setup logging

@@ -8,8 +8,9 @@
 3. Activate virtual environment:
     - Unix/MacOS: `source env/bin/activate`
     - Windows: 
+        - If in Git Bash: `source env/Scripts/activate`
         - VSCode terminal defaults to PowerShell: `.\env\Scripts\Activate.ps1`
-        - If in command prompt `.\env\bin\activate.bat`
+        - If in command prompt: `.\env\bin\activate.bat`
 4. Install dependencies: `pip install -r requirements.txt`
 
 ## Metadata spreadsheet (`ephys_nwb_params.xlsx`)
@@ -48,8 +49,14 @@ Use `convert_abf_to_nwb.py` for automated batch conversion with logging:
 # Interactive mode (prompts for Excel path)
 python convert_abf_to_nwb.py
 
+# All paths and a single experimenter
+python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --data_path /path/to/abf_files --output_folder /path/to/nwb_out --experimenter "John Doe"
+
 # Specify all paths
 python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --data_path /path/to/abf_files
+
+# Custom output folder
+python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --output_folder /path/to/nwb_out
 
 # Override metadata
 python convert_abf_to_nwb.py --excel_path /path/to/params.xlsx --lab "Smith Lab" --institution "MIT"
@@ -62,7 +69,7 @@ python convert_abf_to_nwb.py --help
 ```
 
 **Default configuration:**
-- Output directory: `nwb_files/` (created in the data directory)
+- Output directory: `nwb_files/` (created in the data directory). Override with `--output_folder`.
 - Default lab, institution, and experimenter can be set at the top of the script
 - If `--data_path` is not provided, uses the Excel file's parent directory
 
@@ -84,6 +91,16 @@ See `icephys_abf2nwb.ipynb`
 3. Run code block (`ctrl+enter`)
 
 ## Viewing NWB
--  with Neurosift v2: https://github.com/flatironinstitute/neurosift/tree/main
-    1. `pip install --upgrade neurosift`
-    2. `neurosift view-nwb ./nwb_files/2025053001.nwb` (browser should open)
+
+NWB files can be inspected in the browser with [Neurosift v2](https://github.com/flatironinstitute/neurosift/tree/main).
+
+**One-time install** (run once, or whenever you want to upgrade):
+```bash
+pip install --upgrade neurosift
+```
+
+**Each time you want to view a file:**
+```bash
+neurosift view-nwb ./nwb_files/2025053001.nwb
+```
+Replace the path with the NWB file you want to inspect — your browser should open automatically.
