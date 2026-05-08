@@ -22,12 +22,25 @@ DEFAULT_EXPERIMENTER = ["Yanjun Zhao"]
 
 
 def log_message(log_file, message, print_to_console=True):
-    """Write message to log file and optionally print to console"""
-    with open(log_file, 'a') as f:
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        f.write(f"[{timestamp}] {message}\n")
+    """Write message to log file and optionally print to console.
+
+    The file is opened as UTF-8 so Unicode characters (✓, ✗, etc.) write
+    correctly on Windows, where the default text encoding is cp1252.
+    Any logging failure is swallowed so it can never abort a conversion run.
+    """
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    try:
+        with open(log_file, 'a', encoding='utf-8') as f:
+            f.write(f"[{timestamp}] {message}\n")
+    except Exception as e:
+        # Last-resort: never let logging take down the run
+        print(f"[log write failed: {e}]")
     if print_to_console:
-        print(message)
+        try:
+            print(message)
+        except UnicodeEncodeError:
+            # Fallback for consoles that can't render the message's characters
+            print(message.encode('ascii', 'replace').decode('ascii'))
 
 
 def safe_get(value, default=""):
